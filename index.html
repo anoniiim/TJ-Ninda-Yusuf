@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tingjing Day • Naga & Phoenix</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffd700;
+            --red: #c8102e;
+            --dark: #0f0505;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: linear-gradient(rgba(15,5,5,0.95), rgba(15,5,5,0.95)), 
+                        url('https://picsum.photos/id/1015/1920/1080') center/cover fixed;
+            color: #f0d4a8;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        .naga { 
+            position: absolute; 
+            font-size: 22rem; 
+            opacity: 0.08; 
+            animation: nagaFloat 40s infinite linear; 
+            top: -100px;
+        }
+        .phoenix {
+            font-size: 5rem;
+            animation: phoenixDance 6s infinite alternate ease-in-out;
+        }
+
+        @keyframes nagaFloat {
+            0%   { transform: translate(-100px, 0) rotate(-8deg); }
+            50%  { transform: translate(100px, -80px) rotate(8deg); }
+            100% { transform: translate(-100px, 0) rotate(-8deg); }
+        }
+        @keyframes phoenixDance {
+            from { transform: scale(1) rotate(-8deg); text-shadow: 0 0 40px #ffd700; }
+            to   { transform: scale(1.15) rotate(8deg); text-shadow: 0 0 80px #ff4500; }
+        }
+
+        .countdown {
+            display: flex; justify-content: center; gap: 30px; margin: 40px 0; flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: rgba(0,0,0,0.7);
+            padding: 25px 30px;
+            border-radius: 20px;
+            border: 3px solid var(--gold);
+            text-align: center;
+            min-width: 110px;
+        }
+        .countdown-number { font-size: 3.2rem; font-weight: bold; color: var(--gold); }
+        .countdown-label { font-size: 1.1rem; color: #e8c090; }
+
+        section {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15,5,5,0.96);
+            margin: 90px auto;
+            padding: 80px 60px;
+            max-width: 1100px;
+            border: 5px solid var(--gold);
+            border-radius: 35px;
+        }
+        section.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mpeg">
+    </audio>
+
+    <div onclick="toggleMusic()" style="position:fixed; bottom:30px; right:30px; background:rgba(0,0,0,0.85); padding:15px 25px; border-radius:50px; border:3px solid var(--gold); cursor:pointer; z-index:1000; color:var(--gold); font-weight:bold;">
+        🎵 Musik Romantis
+    </div>
+
+    <div class="hero">
+        <div class="naga">🐉</div>
+        <div>
+            <div class="phoenix">🦅</div>
+            <h1 style="font-size:6rem; color:var(--gold); text-shadow:0 0 80px #ffd700;">TINGJING DAY</h1>
+            <p style="font-size:2.4rem; margin:20px 0;">Anninda Yunishinta &amp; Yusuf Wijaya</p>
+            <p style="font-size:1.8rem;">31 Januari 2027</p>
+            
+            <div class="countdown" id="countdown"></div>
+        </div>
+    </div>
+
+    <div style="max-width:1100px; margin:0 auto; padding:20px;">
+        
+        <section>
+            <h2 style="text-align:center; color:var(--gold); font-size:2.5rem;">🐉🦅 Harmoni Naga & Phoenix</h2>
+            <p style="font-size:1.4rem; text-align:center; line-height:2.1; margin-top:30px;">
+                Dalam mitologi Tiongkok, Naga dan Phoenix melambangkan kesatuan sempurna antara Yin &amp; Yang. 
+                Begitu pula cinta Anninda dan Yusuf yang kini disatukan dalam acara Tingjing yang sakral.
+            </p>
+        </section>
+
+        <section>
+            <h2 style="text-align:center; color:var(--gold);">📍 Lokasi Acara</h2>
+            <p style="text-align:center; font-size:1.3rem;"><strong>Double Happiness International Restaurant</strong><br>Surabaya</p>
+            <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:25px; margin-top:30px;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8!2d112.719!3d-7.257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMTUnMjUuMiJTIDExMsKwNDMnMDguNiJF!5e0!3m2!1sen!2sid!4v1730000000000" 
+                        width="100%" height="450" style="border:0;position:absolute;top:0;left:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <section id="rsvpSection">
+            <h2 style="text-align:center; color:var(--gold);">Konfirmasi Kehadiran 🧧</h2>
+            <form id="rsvpForm" style="display:grid; gap:28px; max-width:720px; margin:40px auto 0;">
+                <label>Nama Lengkap</label>
+                <input type="text" id="name" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
+                
+                <label>Nomor WhatsApp</label>
+                <input type="tel" id="phone" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
+                
+                <label>Kehadiran</label>
+                <select id="attendance" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
+                    <option value="">Pilih</option>
+                    <option value="Hadir">Hadir</option>
+                    <option value="Tidak Hadir">Tidak Hadir</option>
+                </select>
+                
+                <label>Jumlah Tamu</label>
+                <input type="number" id="guests" value="1" min="1" style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
+                
+                <button type="submit" style="padding:25px; font-size:1.6rem; background:linear-gradient(45deg, var(--gold), var(--red)); color:#1c120c; border:none; border-radius:20px; font-weight:bold;">
+                    Kirim Konfirmasi Kehadiran 🐉🦅
+                </button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        // Countdown to 31 Jan 2027
+        function updateCountdown() {
+            const eventDate = new Date("January 31, 2027 09:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<h2 style='color:var(--gold);'>Acara Telah Tiba! 🧧</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000*60*60*24));
+            const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+            const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
+            const seconds = Math.floor((distance % (1000*60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = `
+                <div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">HARI</div></div>
+                <div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">JAM</div></div>
+                <div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">MENIT</div></div>
+                <div class="countdown-item"><div class="countdown-number">${seconds}</div><div class="countdown-label">DETIK</div></div>
+            `;
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Music Control
+        const music = document.getElementById('bgMusic');
+        function toggleMusic() {
+            if (music.paused) music.play();
+            else music.pause();
+        }
+
+        // Section Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+
+        // RSVP Form
+        document.getElementById('rsvpForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Terima kasih! Konfirmasi Anda telah tercatat dengan penuh keberkahan 🐉🦅');
+        });
+    </script>
+</body>
+</html>
