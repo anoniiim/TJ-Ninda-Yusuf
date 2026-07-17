@@ -3,195 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tingjing Day • Naga & Phoenix</title>
+    <title>Tingjing Day • Anninda & Yusuf</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Playfair+Display:wght@700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #ffd700;
-            --red: #c8102e;
-            --dark: #0f0505;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --gold: #ffd700; --red: #c8102e; }
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Noto Serif SC', serif;
-            background: linear-gradient(rgba(15,5,5,0.95), rgba(15,5,5,0.95)), 
-                        url('https://picsum.photos/id/1015/1920/1080') center/cover fixed;
+            background: linear-gradient(#0a0505, #1c120c, #0a0505);
             color: #f0d4a8;
-            overflow-x: hidden;
-        }
-
-        .hero {
+            overflow: hidden;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
         }
-        .naga { 
-            position: absolute; 
-            font-size: 22rem; 
-            opacity: 0.08; 
-            animation: nagaFloat 40s infinite linear; 
-            top: -100px;
+        canvas#particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.55;
         }
-        .phoenix {
-            font-size: 5rem;
-            animation: phoenixDance 6s infinite alternate ease-in-out;
-        }
-
-        @keyframes nagaFloat {
-            0%   { transform: translate(-100px, 0) rotate(-8deg); }
-            50%  { transform: translate(100px, -80px) rotate(8deg); }
-            100% { transform: translate(-100px, 0) rotate(-8deg); }
-        }
-        @keyframes phoenixDance {
-            from { transform: scale(1) rotate(-8deg); text-shadow: 0 0 40px #ffd700; }
-            to   { transform: scale(1.15) rotate(8deg); text-shadow: 0 0 80px #ff4500; }
-        }
-
-        .countdown {
-            display: flex; justify-content: center; gap: 30px; margin: 40px 0; flex-wrap: wrap;
-        }
-        .countdown-item {
-            background: rgba(0,0,0,0.7);
-            padding: 25px 30px;
-            border-radius: 20px;
-            border: 3px solid var(--gold);
-            text-align: center;
-            min-width: 110px;
-        }
-        .countdown-number { font-size: 3.2rem; font-weight: bold; color: var(--gold); }
-        .countdown-label { font-size: 1.1rem; color: #e8c090; }
-
-        section {
+        .page {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             opacity: 0;
-            transform: translateY(80px);
-            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(15,5,5,0.96);
-            margin: 90px auto;
-            padding: 80px 60px;
-            max-width: 1100px;
-            border: 5px solid var(--gold);
-            border-radius: 35px;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            overflow-y: auto;
         }
-        section.visible { opacity: 1; transform: translateY(0); }
+        .page.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .naga-bg { position: absolute; font-size: 30rem; opacity: 0.08; animation: nagaFloat 50s infinite linear; z-index: 1; pointer-events: none; }
+        @keyframes nagaFloat { 0%{transform:translate(-200px,0)rotate(-12deg);} 50%{transform:translate(200px,-120px)rotate(12deg);} 100%{transform:translate(-200px,0)rotate(-12deg);} }
+        
+        .invitation-content { text-align:center; z-index:3; padding-top:100px; }
+        .title { font-family:'Cinzel',serif; font-size:5.8rem; color:var(--gold); text-shadow:0 0 70px #ffd700; }
+        .btn-invitation {
+            margin-top:50px;
+            padding:22px 70px;
+            font-size:1.6rem;
+            background:linear-gradient(45deg,var(--gold),var(--red));
+            color:#1c120c;
+            border:none;
+            border-radius:50px;
+            cursor:pointer;
+            font-weight:bold;
+        }
+        .back-btn {
+            position:absolute;
+            top:30px; left:30px;
+            background:transparent;
+            color:var(--gold);
+            border:2px solid var(--gold);
+            padding:12px 25px;
+            border-radius:30px;
+            cursor:pointer;
+            z-index: 10;
+        }
+        section {
+            background:rgba(20,10,10,0.92);
+            margin:30px 0;
+            padding:50px;
+            border-radius:25px;
+            border:3px solid var(--gold);
+        }
+        form { display:grid; gap:20px; max-width:700px; margin:40px auto 0; }
+        label { text-align:left; color:var(--gold); font-size:1.1rem; margin-bottom:5px; display:block; }
+        input, select, textarea { 
+            padding:18px; 
+            border-radius:15px; 
+            border:3px solid var(--gold); 
+            background:rgba(255,255,255,0.1); 
+            color:white; 
+            font-size:1.1rem; 
+            width:100%;
+        }
+        button[type="submit"] { 
+            background:linear-gradient(45deg,var(--gold),var(--red)); 
+            color:#1c120c; 
+            font-weight:bold; 
+            cursor:pointer; 
+            padding:20px;
+            font-size:1.5rem;
+        }
+        .barcode {
+            font-family: monospace;
+            font-size: 2.4rem;
+            letter-spacing: 12px;
+            background: white;
+            color: black;
+            padding: 25px 60px;
+            border-radius: 15px;
+            margin: 30px auto;
+            display: inline-block;
+            border: 5px solid var(--gold);
+        }
     </style>
 </head>
 <body>
+    <canvas id="particles"></canvas>
 
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3" type="audio/mpeg">
-    </audio>
-
-    <div onclick="toggleMusic()" style="position:fixed; bottom:30px; right:30px; background:rgba(0,0,0,0.85); padding:15px 25px; border-radius:50px; border:3px solid var(--gold); cursor:pointer; z-index:1000; color:var(--gold); font-weight:bold;">
-        🎵 Musik Romantis
-    </div>
-
-    <div class="hero">
-        <div class="naga">🐉</div>
-        <div>
-            <div class="phoenix">🦅</div>
-            <h1 style="font-size:6rem; color:var(--gold); text-shadow:0 0 80px #ffd700;">TINGJING DAY</h1>
-            <p style="font-size:2.4rem; margin:20px 0;">Anninda Yunishinta &amp; Yusuf Wijaya</p>
+    <!-- Halaman Undangan -->
+    <div id="invitationPage" class="page active">
+        <div class="naga-bg">🐉</div>
+        <div class="invitation-content">
+            <h1 class="title">TINGJING DAY</h1>
+            <p style="font-size:2.4rem; margin:20px 0;">Anninda Yunishinta & Yusuf Wijaya</p>
             <p style="font-size:1.8rem;">31 Januari 2027</p>
-            
-            <div class="countdown" id="countdown"></div>
+            <div id="countdown" style="margin:40px 0; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;"></div>
+            <button onclick="showRSVP()" class="btn-invitation">Konfirmasi Kehadiran 🧧</button>
         </div>
     </div>
 
-    <div style="max-width:1100px; margin:0 auto; padding:20px;">
+    <!-- Halaman RSVP -->
+    <div id="rsvpPage" class="page">
+        <button onclick="showInvitation()" class="back-btn">← Kembali ke Undangan</button>
         
-        <section>
-            <h2 style="text-align:center; color:var(--gold); font-size:2.5rem;">🐉🦅 Harmoni Naga & Phoenix</h2>
-            <p style="font-size:1.4rem; text-align:center; line-height:2.1; margin-top:30px;">
-                Dalam mitologi Tiongkok, Naga dan Phoenix melambangkan kesatuan sempurna antara Yin &amp; Yang. 
-                Begitu pula cinta Anninda dan Yusuf yang kini disatukan dalam acara Tingjing yang sakral.
+        <div style="padding:40px; max-width:1100px; margin:0 auto;">
+            <h2 style="text-align:center; color:var(--gold); margin-bottom:30px;">🐉 Harmoni Naga & Phoenix</h2>
+            <p style="text-align:center; font-size:1.35rem; line-height:2;">
+                Kami dengan hormat mengundang Anda untuk bergabung dalam acara Tingjing kami.<br>
+                Mohon konfirmasi kehadiran Anda.
             </p>
-        </section>
 
-        <section>
-            <h2 style="text-align:center; color:var(--gold);">📍 Lokasi Acara</h2>
-            <p style="text-align:center; font-size:1.3rem;"><strong>Double Happiness International Restaurant</strong><br>Surabaya</p>
-            <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:25px; margin-top:30px;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8!2d112.719!3d-7.257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMTUnMjUuMiJTIDExMsKwNDMnMDguNiJF!5e0!3m2!1sen!2sid!4v1730000000000" 
-                        width="100%" height="450" style="border:0;position:absolute;top:0;left:0;" allowfullscreen="" loading="lazy"></iframe>
+            <section>
+                <h2 style="text-align:center; color:var(--gold);">📍 Lokasi Acara</h2>
+                <p style="text-align:center; font-size:1.3rem;"><strong>Double Happiness International Restaurant</strong><br>Surabaya</p>
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:20px; margin-top:20px;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8!2d112.719!3d-7.257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMTUnMjUuMiJTIDExMsKwNDMnMDguNiJF!5e0!3m2!1sen!2sid!4v1730000000000" allowfullscreen="" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe>
+                </div>
+            </section>
+
+            <section>
+                <h2 style="text-align:center; color:var(--gold);">Konfirmasi Kehadiran</h2>
+                <form id="rsvpForm">
+                    <label>Nama Lengkap / Full Name:</label>
+                    <input type="text" id="name" placeholder="Nama Lengkap" required>
+                    
+                    <label>Apakah Anda akan hadir? / Will you attend?</label>
+                    <select id="attendance" required>
+                        <option value="">Pilih / Select</option>
+                        <option value="Hadir">Hadir</option>
+                        <option value="Tidak Hadir">Tidak Hadir</option>
+                    </select>
+                    
+                    <label>Jumlah Tamu Tambahan / Number of Additional Guests:</label>
+                    <input type="number" id="guests" value="0" min="0" placeholder="0">
+                    
+                    <label>Pesan / Message (opsional):</label>
+                    <textarea id="message" rows="4" placeholder="Pesan untuk keluarga..."></textarea>
+                    
+                    <button type="submit">Kirim RSVP 🧧</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- Halaman Sukses (Hadir) -->
+    <div id="successHadir" class="page">
+        <div style="text-align:center; padding:80px 20px; max-width:800px; margin:0 auto;">
+            <h2 style="color:var(--gold); font-size:3rem;">Terima Kasih! 🧧</h2>
+            <p style="font-size:1.5rem; margin:20px 0;">Konfirmasi kehadiran Anda telah tercatat.</p>
+            
+            <p style="margin:30px 0 10px; font-size:1.3rem;">Nomor Undangan Anda:</p>
+            <div class="barcode" id="barcodeHadir">TJG-2027-XXXX</div>
+
+
+<p style="margin:20px 0 10px; font-size:1.3rem;">Scan QR Code:</p>
+            <div style="margin:20px auto; padding:15px; background:white; border-radius:15px; width:fit-content; border:4px solid var(--gold);">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=TJG-2027-7842" alt="QR Code" width="250" height="250">
             </div>
-        </section>
+            
+            <p style="margin-top:40px; font-size:1.8rem;">Semoga kebahagiaan selalu menyertai kita.</p>
+            <button onclick="window.location.reload()" style="margin-top:50px; padding:18px 50px; background:var(--gold); color:#1c120c; border:none; border-radius:50px; font-size:1.3rem;">
+                Kembali ke Halaman Awal
+            </button>
+        </div>
+    </div>
 
-        <section id="rsvpSection">
-            <h2 style="text-align:center; color:var(--gold);">Konfirmasi Kehadiran 🧧</h2>
-            <form id="rsvpForm" style="display:grid; gap:28px; max-width:720px; margin:40px auto 0;">
-                <label>Nama Lengkap</label>
-                <input type="text" id="name" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
-                
-                <label>Nomor WhatsApp</label>
-                <input type="tel" id="phone" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
-                
-                <label>Kehadiran</label>
-                <select id="attendance" required style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
-                    <option value="">Pilih</option>
-                    <option value="Hadir">Hadir</option>
-                    <option value="Tidak Hadir">Tidak Hadir</option>
-                </select>
-                
-                <label>Jumlah Tamu</label>
-                <input type="number" id="guests" value="1" min="1" style="padding:18px; font-size:1.1rem; border-radius:15px; border:3px solid var(--gold); background:rgba(255,255,255,0.08); color:white;">
-                
-                <button type="submit" style="padding:25px; font-size:1.6rem; background:linear-gradient(45deg, var(--gold), var(--red)); color:#1c120c; border:none; border-radius:20px; font-weight:bold;">
-                    Kirim Konfirmasi Kehadiran 🐉🦅
-                </button>
-            </form>
-        </section>
+    <!-- Halaman Sukses (Tidak Hadir) -->
+    <div id="successTidakHadir" class="page">
+        <div style="text-align:center; padding:80px 20px; max-width:800px; margin:0 auto;">
+            <h2 style="color:var(--gold); font-size:3rem;">Terima Kasih! 🧧</h2>
+            <p style="font-size:1.5rem; margin:20px 0;">Kami menghargai konfirmasi Anda.</p>
+            <p style="font-size:1.8rem; margin-top:30px;">Semoga kita dapat bertemu di lain kesempatan.</p>
+            <p style="font-size:2.4rem; margin-top:40px;">百年好合 • 白头偕老</p>
+            <button onclick="window.location.reload()" style="margin-top:50px; padding:18px 50px; background:var(--gold); color:#1c120c; border:none; border-radius:50px; font-size:1.3rem;">
+                Kembali ke Halaman Awal
+            </button>
+        </div>
     </div>
 
     <script>
-        // Countdown to 31 Jan 2027
+        // Partikel Emas
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1.5;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 0.8 - 0.4;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(255, 215, 0, 0.8)`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 140; i++) particles.push(new Particle());
+        }
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initParticles(); });
+        initParticles();
+        animateParticles();
+
+        // Countdown
         function updateCountdown() {
             const eventDate = new Date("January 31, 2027 09:00:00").getTime();
-            const now = new Date().getTime();
-            const distance = eventDate - now;
-
-            if (distance < 0) {
-                document.getElementById("countdown").innerHTML = "<h2 style='color:var(--gold);'>Acara Telah Tiba! 🧧</h2>";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000*60*60*24));
-            const hours = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-            const minutes = Math.floor((distance % (1000*60*60)) / (1000*60));
-            const seconds = Math.floor((distance % (1000*60)) / 1000);
-
+            const distance = eventDate - Date.now();
+            if (distance < 0) return;
+            const d = Math.floor(distance / (1000*60*60*24));
+            const h = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
+            const m = Math.floor((distance % (1000*60*60)) / (1000*60));
             document.getElementById("countdown").innerHTML = `
-                <div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">HARI</div></div>
-                <div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">JAM</div></div>
-                <div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">MENIT</div></div>
-                <div class="countdown-item"><div class="countdown-number">${seconds}</div><div class="countdown-label">DETIK</div></div>
+                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
+                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${d}</div><div>HARI</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
+                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${h}</div><div>JAM</div>
+                </div>
+                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
+                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${m}</div><div>MENIT</div>
+                </div>
             `;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // Music Control
-        const music = document.getElementById('bgMusic');
-        function toggleMusic() {
-            if (music.paused) music.play();
-            else music.pause();
+        // Navigation
+        function showRSVP() {
+            document.getElementById('invitationPage').classList.remove('active');
+            setTimeout(() => document.getElementById('rsvpPage').classList.add('active'), 400);
+        }
+        function showInvitation() {
+            document.getElementById('rsvpPage').classList.remove('active');
+            setTimeout(() => document.getElementById('invitationPage').classList.add('active'), 400);
         }
 
-        // Section Animation
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.15 });
+        // Generate Unique Code
+        function generateUniqueCode() {
+            const prefix = "TJG-2027-";
+            const random = Math.floor(1000 + Math.random() * 9000);
+            return prefix + random;
+        }
 
-        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
 
-        // RSVP Form
+        // Form Submit
         document.getElementById('rsvpForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Terima kasih! Konfirmasi Anda telah tercatat dengan penuh keberkahan 🐉🦅');
+            
+            const attendance = document.getElementById('attendance').value;
+            const uniqueCode = generateUniqueCode();
+            
+            document.getElementById('rsvpPage').classList.remove('active');
+            
+            if (attendance === "Hadir") {
+                document.getElementById('barcodeHadir').textContent = uniqueCode;
+                document.getElementById('successHadir').classList.add('active');
+            } else {
+                document.getElementById('successTidakHadir').classList.add('active');
+            }
         });
     </script>
 </body>
