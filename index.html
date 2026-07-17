@@ -240,28 +240,33 @@
         initParticles();
         animateParticles();
 
-        // Countdown
+    // Countdown Timer
         function updateCountdown() {
             const eventDate = new Date("January 31, 2027 09:00:00").getTime();
-            const distance = eventDate - Date.now();
-            if (distance < 0) return;
-            const d = Math.floor(distance / (1000*60*60*24));
-            const h = Math.floor((distance % (1000*60*60*24)) / (1000*60*60));
-            const m = Math.floor((distance % (1000*60*60)) / (1000*60));
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<h2 style='color:var(--gold);'>Acara Telah Berlangsung! 🧧</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
             document.getElementById("countdown").innerHTML = `
-                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
-                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${d}</div><div>HARI</div>
-                </div>
-                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
-                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${h}</div><div>JAM</div>
-                </div>
-                <div style="background:rgba(0,0,0,0.7); padding:15px 22px; border-radius:12px; border:2px solid var(--gold);">
-                    <div style="font-size:2.6rem; font-weight:bold; color:var(--gold);">${m}</div><div>MENIT</div>
-                </div>
+                <div class="countdown-item"><div class="countdown-number">${days}</div><div class="countdown-label">Hari</div></div>
+                <div class="countdown-item"><div class="countdown-number">${hours}</div><div class="countdown-label">Jam</div></div>
+                <div class="countdown-item"><div class="countdown-number">${minutes}</div><div class="countdown-label">Menit</div></div>
+                <div class="countdown-item"><div class="countdown-number">${seconds}</div><div class="countdown-label">Detik</div></div>
             `;
         }
         setInterval(updateCountdown, 1000);
         updateCountdown();
+
+
 
         // Navigation
         function showRSVP() {
